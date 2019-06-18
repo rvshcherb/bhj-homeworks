@@ -17,6 +17,11 @@ class Game {
   }
 
   registerEvents() {
+    document.addEventListener('keypress', function(event) {
+      console.log(event.key);
+      this.success();
+    })
+
     /*
       TODO:
       Написать обработчик события, который откликается
@@ -87,4 +92,3 @@ class Game {
 }
 
 new Game(document.getElementById('game'))
-
