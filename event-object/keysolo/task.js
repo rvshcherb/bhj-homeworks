@@ -17,18 +17,16 @@ class Game {
   }
 
   registerEvents() {
+    let checkSymbol;
     document.addEventListener('keypress', function(event) {
-      console.log(event.key);
-      this.success();
+      checkSymbol = String.fromCharCode(event.keyCode).toLowerCase();
+      console.log(checkSymbol);
     })
-
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода слова вызываем this.success()
-      При неправильном вводе символа - this.fail();
-     */
+    if (checkSymbol == this.currentSymbol) {
+      this.success();
+    } else {
+      this.fail();
+    }
   }
 
   success() {
@@ -61,30 +59,30 @@ class Game {
 
   getWord() {
     const words = [
-        'bob',
-        'awesome',
-        'netology',
-        'hello',
-        'kitty',
-        'rock',
-        'youtube',
-        'popcorn',
-        'cinema',
-        'love',
-        'javascript'
-      ],
-      index = Math.floor(Math.random() * words.length);
+    'bob',
+    'awesome',
+    'netology',
+    'hello',
+    'kitty',
+    'rock',
+    'youtube',
+    'popcorn',
+    'cinema',
+    'love',
+    'javascript'
+    ],
+    index = Math.floor(Math.random() * words.length);
 
     return words[index];
   }
 
   renderWord(word) {
     const html = [...word]
-      .map(
-        (s, i) =>
-          `<span class="symbol ${i === 0 ? 'symbol_current': ''}">${s}</span>`
+    .map(
+      (s, i) =>
+      `<span class="symbol ${i === 0 ? 'symbol_current': ''}">${s}</span>`
       )
-      .join('');
+    .join('');
     this.wordElement.innerHTML = html;
 
     this.currentSymbol = this.wordElement.querySelector('.symbol_current');
