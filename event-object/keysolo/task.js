@@ -17,17 +17,29 @@ class Game {
   }
 
   registerEvents() {
-    let checkSymbol;
-    document.addEventListener('keypress', function(event) {
-      checkSymbol = String.fromCharCode(event.keyCode).toLowerCase();
-      console.log(checkSymbol);
-    })
-    if (checkSymbol == this.currentSymbol) {
-      this.success();
-    } else {
-      this.fail();
-    }
+    document.addEventListener('keypress', (event) => {
+      const checkSymbol = String.fromCharCode(event.keyCode).toLowerCase();
+      const gameSymbol = this.currentSymbol.textContent;
+      if (checkSymbol == gameSymbol) {
+        this.success();
+      } else {
+        this.fail();
+      }
+    });
   }
+
+  //   registerEvents() {
+  //   const self = this;
+  //   document.addEventListener('keypress', function (event) {
+  //     const checkSymbol = String.fromCharCode(event.keyCode).toLowerCase();
+  //     const gameSymbol = self.currentSymbol.textContent;
+  //     if (checkSymbol == gameSymbol) {
+  //       self.success();
+  //     } else {
+  //       self.fail();
+  //     }
+  //   });
+  // }
 
   success() {
     this.currentSymbol.classList.add('symbol_correct');
@@ -59,30 +71,30 @@ class Game {
 
   getWord() {
     const words = [
-    'bob',
-    'awesome',
-    'netology',
-    'hello',
-    'kitty',
-    'rock',
-    'youtube',
-    'popcorn',
-    'cinema',
-    'love',
-    'javascript'
-    ],
-    index = Math.floor(Math.random() * words.length);
+        'bob',
+        'awesome',
+        'netology',
+        'hello',
+        'kitty',
+        'rock',
+        'youtube',
+        'popcorn',
+        'cinema',
+        'love',
+        'javascript'
+      ],
+      index = Math.floor(Math.random() * words.length);
 
     return words[index];
   }
 
   renderWord(word) {
     const html = [...word]
-    .map(
-      (s, i) =>
-      `<span class="symbol ${i === 0 ? 'symbol_current': ''}">${s}</span>`
+      .map(
+        (s, i) =>
+          `<span class="symbol ${i === 0 ? 'symbol_current': ''}">${s}</span>`
       )
-    .join('');
+      .join('');
     this.wordElement.innerHTML = html;
 
     this.currentSymbol = this.wordElement.querySelector('.symbol_current');
@@ -90,3 +102,5 @@ class Game {
 }
 
 new Game(document.getElementById('game'))
+
+
