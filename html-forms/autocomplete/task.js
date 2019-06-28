@@ -14,7 +14,8 @@ class Autocomplete {
     this.valueContainer.addEventListener( 'click', e => {
       this.searchInput.classList.add( 'autocomplete__search_active' );
       this.list.classList.add( 'autocomplete__list_active' );
-      this.searchInput.value = this.valueElement.textContent.trim();
+      // this.searchInput.value = this.valueElement.textContent.trim();
+      this.searchInput.value = "";  //Закомментировал предыдущую строчку и написал эту, чтобы не нужно было очищать форму вручную
       this.searchInput.focus();
 
       this.onSearch();
@@ -68,26 +69,15 @@ class Autocomplete {
   }
 
   getMatches( text ) {
-    /*
-      TODO: этот метод нужно дописать
-      text - фраза, которую вводят в поле поиска
-      Метод должен вернуть массив.
-
-      Он формируется на основе списка опций select-элемента (this.input)
-      Подходящие опции - те, чей текст содержит то, что есть в аргументе text
-      Необходимо вернуть массив объектов со свойствами:
-      {
-        text: 'Содержимое <option>',
-        value: 'Содержимое атрибута value'
+    const options = [];
+    for (let i = 0; i < this.input.options.length; i++) {
+      if (this.input.options[i].textContent.includes(text)) {
+        options.push({text: this.input.options[i].textContent, value: this.input.options[i].value});
       }
-    */
-    return [
-      {
-        text: 'Чубакка',
-        value: '1'
-      }
-    ];
+    }
+    return options;
   }
 }
 
 new Autocomplete( document.querySelector( '.autocomplete' ));
+
