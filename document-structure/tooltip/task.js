@@ -1,16 +1,14 @@
 const toolTips = document.querySelectorAll('.has-tooltip');
-
+const tip = document.createElement('div');
+tip.className = 'tooltip';
+tip.style = 'position: absolute';
 
 for (toolTip of toolTips) {
   const wrapper = document.createElement('div');
-  const tip = document.createElement('div');
-  wrapper.style = "display: inline-block";
-  wrapper.className = "wrapper";
+  wrapper.style = 'display: inline-block';
+  wrapper.className = 'wrapper';
   wrapper.innerHTML = toolTip.outerHTML;
   toolTip.replaceWith(wrapper);
-  tip.className= "tooltip";
-  tip.innerText = `${toolTip.title}`;
-  wrapper.appendChild(tip);
 }
 
 const tipLinks = document.querySelectorAll('.wrapper');
@@ -18,9 +16,10 @@ const tipLinks = document.querySelectorAll('.wrapper');
 for (tipLink of tipLinks) {
   tipLink.addEventListener('click', function(event) {
     event.preventDefault();
-    event.target.nextElementSibling.classList.toggle('tooltip_active');
+    tip.innerText = event.target.title;
+    event.target.parentElement.appendChild(tip);
+    tip.classList.add('tooltip_active');
   });
 }
-
 
 
